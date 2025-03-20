@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #ff6f61, #ffbc00);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 300px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ff5733;
+        }
+        p {
+            font-size: 14px;
+        }
+        a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Student Registration</h2>
+        <input type="text" id="studentName" placeholder="Name" required>
+        <input type="email" id="studentEmail" placeholder="E-mail" required>
+        <input type="text" id="studentCourse" placeholder="Course" required>
+        <input type="text" id="studentID" placeholder="Student ID" required>
+        <input type="password" id="studentPassword" placeholder="Password" required>
+        <button onclick="registerStudent()">Register</button>
+        <p>Already registered? <a href="logins.html">Login here</a></p>
+    </div>
+
+    <script>
+        function registerStudent() {
+            alert("Student registration successful! Please login.");
+            window.location.href = "logins.html";
+        }
+    </script>
+</body>
+</html>

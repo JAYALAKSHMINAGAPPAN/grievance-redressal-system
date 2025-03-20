@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        }
+        .login-container {
+            text-align: center;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .login-container h1 {
+            margin-bottom: 20px;
+            color: #333333;
+        }
+        .role-button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            color: white;
+        }
+        .role-button.admin {
+            background-color: #007bff;
+        }
+        .role-button.student {
+            background-color: #28a745;
+        }
+        .role-button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Select Your Role</h1>
+        <button class="role-button admin" onclick="navigateTo('admin')">Admin</button>
+        <button class="role-button student" onclick="navigateTo('student')">Student</button>
+    </div>
+
+    <script>
+        function navigateTo(role) {
+            if (role === 'admin') {
+                window.location.href = 'admin_registration.html';
+            } else if (role === 'student') {
+                window.location.href = 'student_registration.html';
+            }
+        }
+    </script>
+</body>
+</html>

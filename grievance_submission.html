@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Grievance</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .grievance-list {
+      width: 100%;
+      max-width: 500px;
+    }
+    .grievance-item {
+      background: white;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .action {
+      color: green;
+      font-weight: bold;
+    }
+    .pending {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Submit Grievance</h2>
+    <form id="grievanceForm">
+      <label for="grievance">Grievance:</label>
+      <textarea id="grievance" rows="4" placeholder="Describe your grievance" required></textarea>
+      <button type="submit">Submit Grievance</button>
+    </form>
+  </div>
+
+  <h2>My Grievances</h2>
+  <div class="grievance-list" id="grievanceList"></div>
+
+  <script>
+    document.getElementById("grievanceForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const grievanceText = document.getElementById("grievance").value.trim();
+
+      if (grievanceText === "") {
+        alert("Please enter a grievance.");
+        return;
+      }
+
+      let grievances = JSON.parse(localStorage.getItem("grievances")) || [];
+      const newGrievance = {
+        grievance: grievanceText,
+        action: "", // Action not taken yet
+        date: new Date().toLocaleString()
+      };
+
+      grievances.push(newGrievance);
+      localStorage.setItem("grievances", JSON.stringify(grievances));
+
+      alert("Grievance submitted successfully!");
+      document.getElementById("grievanceForm").reset();
+      displayGrievances(); // Refresh grievance list
+    });
+
+    function displayGrievances() {
+      const grievanceList = document.getElementById("grievanceList");
+      grievanceList.innerHTML = "";
+      const grievances = JSON.parse(localStorage.getItem("grievances")) || [];
+
+      if (grievances.length === 0) {
+        grievanceList.innerHTML = "<p>No grievances submitted yet.</p>";
+        return;
+      }
+
+      grievances.forEach((grievance) => {
+        const div = document.createElement("div");
+        div.classList.add("grievance-item");
+        div.innerHTML = `
+          <p><strong>${grievance.date}</strong></p>
+          <p>${grievance.grievance}</p>
+          <p>Action Taken: <span class="${grievance.action ? 'action' : 'pending'}">
+            ${grievance.action || "Pending"}
+          </span></p>
+        `;
+        grievanceList.appendChild(div);
+      });
+    }
+
+    displayGrievances(); // Show grievances when page loads
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Grievance Action</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    textarea, button, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Update Grievance Action</h2>
+    <form id="actionForm">
+      <label for="grievanceSelect">Select Grievance:</label>
+      <select id="grievanceSelect" required></select>
+      
+      <label for="action">Action Taken:</label>
+      <textarea id="action" rows="4" placeholder="Describe the action taken" required></textarea>
+      
+      <button type="submit">Submit Action</button>
+    </form>
+  </div>
+
+  <script>
+    const grievanceSelect = document.getElementById("grievanceSelect");
+    const actionForm = document.getElementById("actionForm");
+
+    // Load grievances from localStorage
+    const grievances = JSON.parse(localStorage.getItem("grievances")) || [];
+
+    if (grievances.length === 0) {
+      alert("No grievances available to update.");
+      grievanceSelect.disabled = true;
+    } else {
+      grievances.forEach((grievance, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = `${grievance.date} - ${grievance.grievance}`;
+        grievanceSelect.appendChild(option);
+      });
+    }
+
+    actionForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const selectedIndex = grievanceSelect.value;
+      if (selectedIndex === "") {
+        alert("Please select a grievance.");
+        return;
+      }
+
+      grievances[selectedIndex].action = document.getElementById("action").value;
+      localStorage.setItem("grievances", JSON.stringify(grievances));
+
+      alert("Action updated successfully!");
+      actionForm.reset();
+    });
+  </script>
+</body>
+</html>
